@@ -2,6 +2,7 @@
 
 I created this to host Window builds of Lentil. I won't be changing any code or functionality. The only cosmetic change I've made so far is updating the wording of some tooltips. Will keep this current any time the official code base is updated.
 
+-----
 
 ### There are two components to this project. The first of one is "pota" - short for "Polynomial optics to Arnold". The second one is "polynomial-optics", which is a fork of "Sparse high-degree polynomials for wide-angle lenses" (https://jo.dreggn.org/home/2016_optics.pdf)
 
