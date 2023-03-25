@@ -1,0 +1,426 @@
+### exported: Wed Oct 30 19:58:56 2019
+### from:     Arnold 5.4.0.1 [197d4d5e] darwin clang-5.0.2 oiio-2.1.0 osl-1.11.0 vdb-4.0.0 clm-1.0.3.513 rlm-12.4.2 2019/09/12 15:07:32
+### host app: MtoA 3.3.0.1 919d09a9 (master) Maya 2018
+### user: cactus
+### bounds: -18.344713 -1.358127 -1.358128 10.716307 1.358127 1.358127
+### render_layer: defaultRenderLayer
+### scene: /Users/zeno/test01.ma
+
+
+
+options
+{
+ AA_samples 5
+ outputs 4 1 STRING
+  "RGBA RGBA defaultArnoldFilter@gaussian_filter aiAOVDriver2@lentil_thin_lens_bokeh_driver"
+  "RGBA RGBA defaultArnoldFilter@gaussian_filter defaultArnoldDriver@driver_exr.RGBA"
+  "P VECTOR aiAOVFilter1@closest_filter defaultArnoldDriver@driver_exr.P"
+  "Z FLOAT aiAOVFilter1@closest_filter defaultArnoldDriver@driver_exr.Z"
+ xres 1920
+ yres 1080
+ camera "perspShape"
+ frame 1
+ GI_diffuse_depth 1
+ GI_specular_depth 1
+ GI_transmission_depth 8
+ declare render_layer constant STRING
+ render_layer "defaultRenderLayer"
+}
+
+closest_filter
+{
+ name aiAOVFilter1@closest_filter
+}
+
+
+driver_exr
+{
+ name defaultArnoldDriver@driver_exr.P
+ filename "/home/cactus/lentil/pota/tests/driver_dof/test01_1.P.exr"
+ compression "zip"
+ half_precision off
+ tiled on
+ color_space ""
+ preserve_layer_name off
+ autocrop off
+ append off
+}
+
+driver_exr
+{
+ name defaultArnoldDriver@driver_exr.Z
+ filename "/home/cactus/lentil/pota/tests/driver_dof/test01_1.Z.exr"
+ compression "zip"
+ half_precision off
+ tiled on
+ color_space ""
+ preserve_layer_name off
+ autocrop off
+ append off
+}
+
+gaussian_filter
+{
+ name defaultArnoldFilter@gaussian_filter
+}
+
+lentil_thin_lens_bokeh_driver
+{
+ name aiAOVDriver2@lentil_thin_lens_bokeh_driver
+}
+
+driver_exr
+{
+ name defaultArnoldDriver@driver_exr.RGBA
+ filename "/home/cactus/lentil/pota/tests/driver_dof/test01_1.exr"
+ color_space ""
+}
+
+
+lentil_thinlens
+{
+ name perspShape
+ matrix
+ 0.65077424 -1.73472348e-18 -0.759271324 0
+ -0.0199451707 0.999654889 -0.0170950796 0
+ 0.759009302 0.0262688324 0.65054965 0
+ 10.6906643 1.369997144 9.16300678 1
+ focus_distanceTL 18.0
+ fstopTL 0.75
+ bidir_min_luminanceTL 1.0
+ bidir_output_pathTL "/home/cactus/lentil/pota/tests/driver_dof/test02.<aov>.<frame>.exr"
+ bidir_sample_multTL 50
+ optical_vignetting_distanceTL 7.0
+ bokeh_enable_imageTL false
+ bokeh_image_pathTL "/home/cactus/lentil/pota/bokeh_imgs/teapot.png"
+ declare maya_full_name constant STRING
+ maya_full_name "|persp|perspShape"
+ #optical_vignetting_distanceTL 5.0
+ #optical_vignetting_radiusTL 1.0
+}
+
+
+skydome_light
+{
+ name aiSkyDomeLightShape1
+ intensity 0.0735294074
+ exposure 0
+ cast_shadows on
+ cast_volumetric_shadows on
+ shadow_density 1
+ shadow_color 0 0 0
+ samples 1
+ normalize on
+ camera 1
+ transmission 1
+ diffuse 1
+ specular 1
+ sss 1
+ indirect 1
+ max_bounces 999
+ volume_samples 2
+ volume 1
+ aov "default"
+ resolution 1000
+ format "latlong"
+ portal_mode "interior_only"
+ aov_indirect off
+ declare maya_full_name constant STRING
+ maya_full_name "|aiSkyDomeLight1|aiSkyDomeLightShape1"
+}
+
+point_light
+{
+ name bglights_grp|pointLight63|pointLightShape63
+ matrix
+ 1.35812736 0 0 0
+ 0 1.35812736 0 0
+ 0 0 1.35812736 0
+ 0 0 0 1
+ color 0.876626074 0.388225466 0.0254070815
+ exposure 2.43594217
+ cast_shadows on
+ cast_volumetric_shadows on
+ shadow_density 1
+ samples 1
+ normalize on
+ camera 1
+ transmission 0
+ diffuse 0
+ specular 0
+ sss 0
+ indirect 0
+ max_bounces 999
+ volume_samples 2
+ volume 1
+ aov "default"
+ radius 0.2
+ declare maya_full_name constant STRING
+ maya_full_name "|bglights_grp|pointLight63|pointLightShape63"
+}
+
+
+point_light
+{
+ name bglights_grp|pointLight63|pointLightShape63
+ matrix
+ 0.074613 0 0 0
+ 0 0.074613 0 0
+ 0 0 0.074613 0
+ -3.1720 1.947155 -2.39547 1
+ color 0.876626074 0.388225466 0.0254070815
+ exposure 2.43594217
+ cast_shadows on
+ cast_volumetric_shadows on
+ shadow_density 1
+ samples 1
+ normalize on
+ camera 1
+ transmission 0
+ diffuse 0
+ specular 0
+ sss 0
+ indirect 0
+ max_bounces 999
+ volume_samples 2
+ volume 1
+ aov "default"
+ radius 0.2
+ declare maya_full_name constant STRING
+ maya_full_name "|bglights_grp|pointLight63|pointLightShape63"
+}
+
+
+
+point_light
+{
+ name bglights_grp|pointLight63|pointLightShape63
+ matrix
+ 1.35812736 0 0 0
+ 0 1.35812736 0 0
+ 0 0 1.35812736 0
+ 9.35817909 0 0 1
+ color 0.876626074 0.388225466 0.0254070815
+ exposure 2.43594217
+ cast_shadows on
+ cast_volumetric_shadows on
+ shadow_density 1
+ samples 1
+ normalize on
+ camera 1
+ transmission 0
+ diffuse 0
+ specular 0
+ sss 0
+ indirect 0
+ max_bounces 999
+ volume_samples 2
+ volume 1
+ aov "default"
+ radius 0.2
+ declare maya_full_name constant STRING
+ maya_full_name "|bglights_grp|pointLight63|pointLightShape63"
+}
+
+
+
+
+point_light
+{
+ name bglights_grp|pointLight63|pointLightShape63
+ matrix
+ 1.35812736 0 0 0
+ 0 1.35812736 0 0
+ 0 0 1.35812736 0
+ 3.40552044 0 0 1
+ color 0.876626074 0.388225466 0.0254070815
+ exposure 2.43594217
+ cast_shadows on
+ cast_volumetric_shadows on
+ shadow_density 1
+ samples 1
+ normalize on
+ camera 1
+ transmission 0
+ diffuse 0
+ specular 0
+ sss 0
+ indirect 0
+ max_bounces 999
+ volume_samples 2
+ volume 1
+ aov "default"
+ radius 0.2
+ declare maya_full_name constant STRING
+ maya_full_name "|bglights_grp|pointLight63|pointLightShape63"
+}
+
+
+
+point_light
+{
+ name bglights_grp|pointLight63|pointLightShape63
+ matrix
+ 1.35812736 0 0 0
+ 0 1.35812736 0 0
+ 0 0 1.35812736 0
+ 6.28806829 0 0 1
+ color 0.876626074 0.388225466 0.0254070815
+ exposure 2.43594217
+ cast_shadows on
+ cast_volumetric_shadows on
+ shadow_density 1
+ samples 1
+ normalize on
+ camera 1
+ transmission 0
+ diffuse 0
+ specular 0
+ sss 0
+ indirect 0
+ max_bounces 999
+ volume_samples 2
+ volume 1
+ aov "default"
+ radius 0.2
+ declare maya_full_name constant STRING
+ maya_full_name "|bglights_grp|pointLight63|pointLightShape63"
+}
+
+
+point_light
+{
+ name bglights_grp|pointLight63|pointLightShape63
+ matrix
+ 1.35812736 0 0 0
+ 0 1.35812736 0 0
+ 0 0 1.35812736 0
+ -3.51065993 0 0 1
+ color 0.876626074 0.388225466 0.0254070815
+ exposure 2.43594217
+ cast_shadows on
+ cast_volumetric_shadows on
+ shadow_density 1
+ samples 1
+ normalize on
+ camera 1
+ transmission 0
+ diffuse 0
+ specular 0
+ sss 0
+ indirect 0
+ max_bounces 999
+ volume_samples 2
+ volume 1
+ aov "default"
+ radius 0.2
+ declare maya_full_name constant STRING
+ maya_full_name "|bglights_grp|pointLight63|pointLightShape63"
+}
+
+
+
+point_light
+{
+ name bglights_grp|pointLight63|pointLightShape63
+ matrix
+ 1.35812736 0 0 0
+ 0 1.35812736 0 0
+ 0 0 1.35812736 0
+ -6.79319668 0 0 1
+ color 0.876626074 0.388225466 0.0254070815
+ exposure 2.43594217
+ cast_shadows on
+ cast_volumetric_shadows on
+ shadow_density 1
+ samples 1
+ normalize on
+ camera 1
+ transmission 0
+ diffuse 0
+ specular 0
+ sss 0
+ indirect 0
+ max_bounces 999
+ volume_samples 2
+ volume 1
+ aov "default"
+ radius 0.2
+ declare maya_full_name constant STRING
+ maya_full_name "|bglights_grp|pointLight63|pointLightShape63"
+}
+
+
+
+
+point_light
+{
+ name bglights_grp|pointLight63|pointLightShape63
+ matrix
+ 1.35812736 0 0 0
+ 0 1.35812736 0 0
+ 0 0 1.35812736 0
+ -11.9490814 0 0 1
+ color 0.876626074 0.388225466 0.0254070815
+ exposure 2.43594217
+ cast_shadows on
+ cast_volumetric_shadows on
+ shadow_density 1
+ samples 1
+ normalize on
+ camera 1
+ transmission 0
+ diffuse 0
+ specular 0
+ sss 0
+ indirect 0
+ max_bounces 999
+ volume_samples 2
+ volume 1
+ aov "default"
+ radius 0.2
+ declare maya_full_name constant STRING
+ maya_full_name "|bglights_grp|pointLight63|pointLightShape63"
+}
+
+
+
+
+point_light
+{
+ name bglights_grp|pointLight63|pointLightShape63
+ matrix
+ 1.35812736 0 0 0
+ 0 1.35812736 0 0
+ 0 0 1.35812736 0
+ -16.9865856 0 0 1
+ color 0.876626074 0.388225466 0.0254070815
+ exposure 2.43594217
+ cast_shadows on
+ cast_volumetric_shadows on
+ shadow_density 1
+ samples 1
+ normalize on
+ camera 1
+ transmission 0
+ diffuse 0
+ specular 0
+ sss 0
+ indirect 0
+ max_bounces 999
+ volume_samples 2
+ volume 1
+ aov "default"
+ radius 0.2
+ declare maya_full_name constant STRING
+ maya_full_name "|bglights_grp|pointLight63|pointLightShape63"
+}
+
+
+
+standard_surface
+{
+ name aiStandardSurface1
+ base 0.448529422
+}
+
