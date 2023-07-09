@@ -1,3 +1,17 @@
+### CryptomatteArnold 1.2.3 release notes: 
+
+* Fixed deprecation warnings in Arnold 7.x (Thanks @cpichard and @ThiagoIze)
+* Fixed Arnold-Python code for Arnold 7.x 
+* Added tests that exercise rendering multiple times in one Arnold session
+
+### CryptomatteArnold 1.2.2 release notes: 
+
+* Fixed an issue where sidecar manifests did not work with Solaris (Thanks @cpichard)
+
+### CryptomatteArnold 1.2.1 release notes: 
+
+* Removed call to deprecated `AtCritSec` and replaced with `AtMutex` (Thanks @ThiagoIze)
+
 ### CryptomatteArnold 1.2.0 release notes: 
 
 Adds capabilities required to use Cryptomatte in Solaris. (Note this doesn't automatically bring support for Cryptomatte to Solaris, but makes the necessary changes to CryptomatteArnold.)

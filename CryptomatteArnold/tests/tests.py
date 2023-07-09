@@ -36,6 +36,7 @@ class KickAndCompareTestCase(unittest.TestCase):
     arnold_v = 1
     arnold_t = 4
     arnold_nw = 20
+    num_render_refreshes = 0
 
     @classmethod
     def setUpClass(self):
@@ -43,16 +44,15 @@ class KickAndCompareTestCase(unittest.TestCase):
 
         file_dir = os.path.abspath(os.path.dirname(__file__))
 
-        build_dir = os.path.normpath(os.path.join(file_dir, "..", "build")).replace("\\", "/")
-        print build_dir
-        if not os.path.exists(build_dir):
-            raise RuntimeError("could not find %s ", build_dir)
+        self.build_dir = os.path.normpath(os.path.join(file_dir, "..", "build")).replace("\\", "/")
+        if not os.path.exists(self.build_dir):
+            raise RuntimeError("could not find %s ", self.build_dir)
         self.ass_file = os.path.join(file_dir, self.ass)
-        ass_file_name = os.path.basename(self.ass_file)
-        test_dir = os.path.abspath(os.path.dirname(self.ass_file))
+        self.ass_file_name = os.path.basename(self.ass_file)
+        self.test_dir = os.path.abspath(os.path.dirname(self.ass_file))
 
-        self.result_dir = os.path.join(test_dir, "%s_result" % ass_file_name[:3]).replace("\\", "/")
-        self.correct_result_dir = os.path.join(test_dir, "%s_correct" % ass_file_name[:3]).replace("\\", "/")
+        self.result_dir = os.path.join(self.test_dir, "%s_result" % self.ass_file_name[:3]).replace("\\", "/")
+        self.correct_result_dir = os.path.join(self.test_dir, "%s_correct" % self.ass_file_name[:3]).replace("\\", "/")
         self.result_log = os.path.join(self.result_dir, "log.txt").replace("\\", "/")
         self.correct_file_names = [
             x for x in os.listdir(self.correct_result_dir)
@@ -60,10 +60,17 @@ class KickAndCompareTestCase(unittest.TestCase):
         ]
 
         assert os.path.isfile(self.ass_file), "No test ass file found. %s" % (self.ass_file)
-        assert os.path.isdir(test_dir), "No test dir found. %s" % (test_dir)
+        assert os.path.isdir(self.test_dir), "No test dir found. %s" % (self.test_dir)
         assert os.path.isdir(self.correct_result_dir), "No correct result dir found. %s" % (
             self.correct_result_dir)
 
+        if self.num_render_refreshes:
+            self.render_in_python(self.num_render_refreshes)
+        else:
+            self.render_in_kick()
+
+    @classmethod
+    def reset_results(self):
         # only remove previous results after it's confirmed everything else exists, to
         # mitigate odds we're looking at the wrong dir or something.
         if os.path.exists(self.result_dir):
@@ -82,15 +89,62 @@ class KickAndCompareTestCase(unittest.TestCase):
         ]
         assert not remaining_files, "Files were not cleaned up: %s " % remaining_files
 
+    @classmethod
+    def render_in_kick(self):
+        self.reset_results()
         cmd = 'kick -v {v} -t {t} -nw {nw} -dp -dw -sl -nostdin -logfile {log} -i {ass}'.format(
-            v=self.arnold_v, t=self.arnold_t, nw=self.arnold_nw, log=self.result_log, ass=ass_file_name)
-        cwd = test_dir.replace("\\", "/")
-        print cmd, cwd
+            v=self.arnold_v, t=self.arnold_t, nw=self.arnold_nw, log=self.result_log, ass=self.ass_file_name)
+        cwd = self.test_dir.replace("\\", "/")
         env = os.environ.copy()
-        env["ARNOLD_PLUGIN_PATH"] = "%s;%s" % (build_dir, env.get("ARNOLD_PLUGIN_PATH", ""))
+        env["ARNOLD_PLUGIN_PATH"] = "%s;%s" % (self.build_dir, env.get("ARNOLD_PLUGIN_PATH", ""))
         proc = subprocess.Popen(cmd, cwd=cwd, env=env, shell=True, stderr=subprocess.PIPE)
         rc = proc.wait()
         assert rc == 0, "Render return code indicates a failure: %s " % rc
+
+    @classmethod
+    def render_in_python(self, refreshes=1):
+        import arnold as ai
+        current_directory = os.getcwd()
+        self.reset_results()
+        try:
+            os.chdir(self.test_dir.replace("\\", "/"))
+
+            ai.AiLoadPlugins(self.build_dir)
+
+            ai.AiBegin()
+            universe = ai.AiUniverse()
+
+            msg_flags = ai.AI_LOG_INFO|ai.AI_LOG_WARNINGS|ai.AI_LOG_ERRORS
+            ai.AiMsgSetLogFileName(self.result_log)
+            ai.AiMsgSetMaxWarnings(self.arnold_nw)
+            ai.AiMsgSetLogFileFlags(universe, msg_flags)
+            ai.AiMsgSetConsoleFlags(universe, msg_flags)
+            ai.AiMsgInfo("[Cryptomatte test suite] - Rendering with Python. ")
+
+            params = ai.AiParamValueMap();
+            ai.AiParamValueMapSetInt(params, "mask", ai.AI_NODE_ALL);
+            ai.AiSceneLoad(universe, self.ass_file, params)
+
+            session = ai.AiRenderSession(universe, ai.AI_SESSION_BATCH)
+            options = ai.AiUniverseGetOptions(universe)
+            ai.AiNodeSetBool(options, "skip_license_check", True)
+
+            for i in range(refreshes):
+                if i > 0:
+                    ai.AiMsgWarning("[Cryptomatte test suite] - rerendering to simulate multiple frames. ")
+                rc = ai.AiRender(session, ai.AI_RENDER_MODE_CAMERA)
+
+            ai.AiRenderSessionDestroy(session)
+            ai.AiUniverseDestroy(universe)
+            ai.AiEnd()
+
+            assert rc == 0, "Render return code indicates a failure: %s" % rc
+
+        except Exception:
+            raise
+        finally:
+            os.chdir(current_directory)
+
 
     #
     # Helpers

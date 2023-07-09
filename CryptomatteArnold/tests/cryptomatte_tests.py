@@ -351,12 +351,14 @@ class Cryptomatte000(CryptomatteTestBase):
         self.assertCryptomattePixelsMatch()
 
     def test_unit_tests_ran(self):
+        run_msg = "Cryptomatte unit tests: Running"
+        complete_msg = "Cryptomatte unit tests: Complete"
         with open(self.result_log) as f:
             log_contents = f.read()
-            self.assertIn("Cryptomatte unit tests: Running", log_contents,
-                          "C++ unit test did not run. ")
-            self.assertIn("Cryptomatte unit tests: Complete", log_contents,
-                          "C++ unit test did not complete. ")
+            self.assertIn(run_msg, log_contents,
+                          'C++ unit test did not run. Could not find in logs: "%s"' % run_msg)
+            self.assertIn(complete_msg, log_contents,
+                          'C++ unit test did not complete. Could not find in logs: "%s"' % complete_msg)
 
     @unittest.skip("Not necessary outside of distributing binaries")
     def test_build_compatibility(self):
@@ -479,7 +481,9 @@ class Cryptomatte020(CryptomatteTestBase):
     """
     Has some custom cryptomattes. Some objects have values set, others do not.
     Some per-face user data as well.
-
+    
+    Simulates IPR refreshes. 
+    
     Settings:
         naming style: maya
         exr: single
@@ -489,6 +493,7 @@ class Cryptomatte020(CryptomatteTestBase):
     Something has strings per polygon.
     """
     ass = "cryptomatte/020_custom_cryptomattes.ass"
+    num_render_refreshes = 2
 
     def test_compression_and_manifests(self):
         self.assertAllManifestsValidAndMatch()
@@ -522,19 +527,27 @@ class CryptomatteSetup(unittest.TestCase):
     def setUp(self):
         self.output_file_name = os.path.join(tempfile.gettempdir(), "result.exr")
 
-        ai.AiBegin()
-        ai.AiMsgSetConsoleFlags(ai.AI_LOG_NONE)
-        ai.AiMsgSetConsoleFlags(ai.AI_LOG_WARNINGS | ai.AI_LOG_ERRORS)
 
-        options = ai.AiUniverseGetOptions()
+        ai.AiBegin()
+        self.universe = ai.AiUniverse()
+
+        msg_flags = ai.AI_LOG_INFO|ai.AI_LOG_WARNINGS|ai.AI_LOG_ERRORS
+        ai.AiMsgSetLogFileFlags(self.universe, msg_flags)
+        ai.AiMsgSetConsoleFlags(self.universe, msg_flags)
+        ai.AiMsgInfo("[Cryptomatte test suite] - Rendering with Python. ")
+
+        self.session = ai.AiRenderSession(self.universe, ai.AI_SESSION_BATCH)
+        options = ai.AiUniverseGetOptions(self.universe)
+        ai.AiNodeSetBool(options, "skip_license_check", True)
+
         ai.AiNodeSetBool(options, "skip_license_check", True)
         ai.AiNodeSetInt(options, "xres", 16);
         ai.AiNodeSetInt(options, "yres", 16);
 
-        self.my_camera = ai.AiNode("persp_camera", "my_camera", None)
-        self.my_filter = ai.AiNode("gaussian_filter", "my_filter", None)
-        self.my_driver = ai.AiNode("driver_exr", "my_driver", None)
-        self.my_cryptomatte = ai.AiNode("cryptomatte", "my_cryptomatte", None)
+        self.my_camera = ai.AiNode(self.universe, "persp_camera", "my_camera", None)
+        self.my_filter = ai.AiNode(self.universe, "gaussian_filter", "my_filter", None)
+        self.my_driver = ai.AiNode(self.universe, "driver_exr", "my_driver", None)
+        self.my_cryptomatte = ai.AiNode(self.universe, "cryptomatte", "my_cryptomatte", None)
 
         ai.AiNodeSetStr(self.my_driver, "filename", self.output_file_name)
         ai.AiNodeSetPtr(options, "aov_shaders", self.my_cryptomatte)
@@ -545,9 +558,12 @@ class CryptomatteSetup(unittest.TestCase):
              "loaded in Python. (There may be binary compatibily issues "
              "with Python). "))
 
+
     def tearDown(self):
         if os.path.exists(self.output_file_name):
             os.remove(self.output_file_name)
+        ai.AiRenderSessionDestroy(self.session)
+        ai.AiUniverseDestroy(self.universe)
         ai.AiEnd()
         
     def list_to_array(self, python_list):
@@ -628,12 +644,12 @@ class CryptomatteSetup(unittest.TestCase):
         """ Tests setup of outputs occurs correctly with a full precision driver 
         HALF aovs should be preserved, but no new AOVs should be set to HALF.
         """
-        options = ai.AiUniverseGetOptions()
+        options = ai.AiUniverseGetOptions(self.universe)
         orig_num = len(outputs_init)
 
         ai.AiNodeSetArray(options, "outputs", self.list_to_array(outputs_init));
 
-        ai.AiRender()
+        ai.AiRender(self.session, ai.AI_RENDER_MODE_CAMERA)
 
         found_outputs = self.array_to_list(ai.AiNodeGetArray(options, "outputs"))
 

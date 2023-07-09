@@ -19,7 +19,7 @@
 #include "aov_data.h"
 #include "operator_data.h"
 
-extern AtCritSec l_critsec;
+extern AtMutex l_critsec;
 extern bool l_critsec_active;
 
 
@@ -32,28 +32,26 @@ extern bool l_critsec_active;
 inline bool lentil_crit_sec_init() {
     // Called in node_plugin_initialize. Returns true as a convenience.
     l_critsec_active = true;
-    AiCritSecInit(&l_critsec);
     return true;
 }
 
 inline void lentil_crit_sec_close() {
     // Called in node_plugin_cleanup
     l_critsec_active = false;
-    AiCritSecClose(&l_critsec);
 }
 
 inline void lentil_crit_sec_enter() {
     // If the crit sec has not been inited since last close, we simply do not enter.
     // (Used by Cryptomatte filter.)
     if (l_critsec_active)
-        AiCritSecEnter(&l_critsec);
+        l_critsec.lock();
 }
 
 inline void lentil_crit_sec_leave() {
     // If the crit sec has not been inited since last close, we simply do not enter.
     // (Used by Cryptomatte filter.)
     if (l_critsec_active)
-        AiCritSecLeave(&l_critsec);
+        l_critsec.unlock();
 }
 
 
@@ -224,7 +222,8 @@ public:
         image.invalidate();
         if (bokeh_enable_image && !image.read(bokeh_image_path.c_str())){
             AiMsgError("[LENTIL CAMERA PO] Couldn't open bokeh image!");
-            AiRenderAbort();
+            AtRenderSession *render_session = AiUniverseGetRenderSession(universe);
+            AiRenderAbort(render_session);
         }
 
 
@@ -1164,7 +1163,8 @@ private:
         // if progressive rendering is on, don't redistribute
         if (enable_dof && bidir_sample_mult != 0 && AiNodeGetBool(AiUniverseGetOptions(universe), AtString("enable_progressive_render"))) {
             AiMsgError("[LENTIL BIDIRECTIONAL] Progressive rendering is not supported. Arnold does not yet provide enough API functionality for this to be implemented as it should.");
-            AiRenderAbort();
+            AtRenderSession *render_session = AiUniverseGetRenderSession(universe);
+            AiRenderAbort(render_session);
             return false;
         }
 

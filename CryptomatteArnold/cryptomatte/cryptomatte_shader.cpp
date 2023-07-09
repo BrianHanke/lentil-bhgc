@@ -4,26 +4,6 @@
 #include <cstring>
 #include <string>
 
-
-// mechanism to setup the lentil AOVs AFTER cryptomatte has done it's thing, in the scenario that lentil
-// is first in the node_update queue. 
-#include "../pota/src/lentil.h"
-void setup_outputs_lentil(AtUniverse *universe) {
-    AtNode *camera_node = AiUniverseGetCamera(universe);
-    if (AiNodeEntryGetNameAtString(AiNodeGetNodeEntry(camera_node)) == AtString("lentil_camera")) {
-        Camera* camera_data = reinterpret_cast<Camera*>(AiNodeGetLocalData(camera_node));
-        
-        if (camera_data->crypto_in_same_queue) { // lentil node has been executed already and has been waiting 5sec in a deadlock
-            AiMsgWarning("Lentil setup was done inside of cryptomatte shader to avoid deadlock.");
-            camera_data->setup_lentil_aovs(universe);
-            camera_data->setup_crypto_aovs(universe);
-            camera_data->setup_filter(universe);
-        }
-    }
-}
-
-
-
 AI_SHADER_NODE_EXPORT_METHODS(cryptomatteMtd)
 
 enum cryptomatteParams {
@@ -78,9 +58,9 @@ node_parameters {
     AiParameterStr("user_crypto_src_3", "");
 }
 
-node_plugin_initialize { return crypto_crit_sec_init(); }
+node_plugin_initialize { return true; }
 
-node_plugin_cleanup { crypto_crit_sec_close(); }
+node_plugin_cleanup { }
 
 node_initialize {
     CryptomatteData* data = new CryptomatteData();
@@ -97,51 +77,49 @@ node_update {
     CryptomatteData* data = reinterpret_cast<CryptomatteData*>(AiNodeGetLocalData(node));
     AtUniverse *universe = AiNodeGetUniverse(node);
 
-    data->set_option_sidecar_manifests(AiNodeGetBool(node, "sidecar_manifests"));
-    data->set_option_channels(AiNodeGetInt(node, "cryptomatte_depth"),
-                              AiNodeGetBool(node, "preview_in_exr"));
+    data->set_option_sidecar_manifests(AiNodeGetBool(node, aStr_sidecar_manifests));
+    data->set_option_channels(AiNodeGetInt(node, aStr_cryptomatte_depth),
+                              AiNodeGetBool(node, aStr_preview_in_exr));
 
     CryptoNameFlag flags = CRYPTO_NAME_ALL;
-    if (!AiNodeGetBool(node, "process_maya"))
+    if (!AiNodeGetBool(node, aStr_process_maya))
         flags ^= CRYPTO_NAME_MAYA;
-    if (!AiNodeGetBool(node, "process_paths"))
+    if (!AiNodeGetBool(node, aStr_process_paths))
         flags ^= CRYPTO_NAME_PATHS;
-    if (!AiNodeGetBool(node, "process_obj_path_pipes"))
+    if (!AiNodeGetBool(node, aStr_process_obj_path_pipes))
         flags ^= CRYPTO_NAME_OBJPATHPIPES;
-    if (!AiNodeGetBool(node, "process_mat_path_pipes"))
+    if (!AiNodeGetBool(node, aStr_process_mat_path_pipes))
         flags ^= CRYPTO_NAME_MATPATHPIPES;
-    if (!AiNodeGetBool(node, "process_legacy"))
+    if (!AiNodeGetBool(node, aStr_process_legacy))
         flags ^= CRYPTO_NAME_LEGACY;
 
     CryptoNameFlag obj_flags = flags, mat_flags = flags;
-    if (!AiNodeGetBool(node, "strip_obj_namespaces"))
+    if (!AiNodeGetBool(node, aStr_strip_obj_namespaces))
         obj_flags ^= CRYPTO_NAME_STRIP_NS;
-    if (!AiNodeGetBool(node, "strip_mat_namespaces"))
+    if (!AiNodeGetBool(node, aStr_strip_mat_namespaces))
         mat_flags ^= CRYPTO_NAME_STRIP_NS;
 
     data->set_option_namespace_stripping(obj_flags, mat_flags);
 
     AtArray* uc_aov_array = AiArray(4, 1, AI_TYPE_STRING, //
-                                    AiNodeGetStr(node, "user_crypto_aov_0").c_str(),
-                                    AiNodeGetStr(node, "user_crypto_aov_1").c_str(),
-                                    AiNodeGetStr(node, "user_crypto_aov_2").c_str(),
-                                    AiNodeGetStr(node, "user_crypto_aov_3").c_str());
+                                    AiNodeGetStr(node, aStr_user_crypto_aov_0).c_str(),
+                                    AiNodeGetStr(node, aStr_user_crypto_aov_1).c_str(),
+                                    AiNodeGetStr(node, aStr_user_crypto_aov_2).c_str(),
+                                    AiNodeGetStr(node, aStr_user_crypto_aov_3).c_str());
     AtArray* uc_src_array = AiArray(4, 1, AI_TYPE_STRING, //
-                                    AiNodeGetStr(node, "user_crypto_src_0").c_str(),
-                                    AiNodeGetStr(node, "user_crypto_src_1").c_str(),
-                                    AiNodeGetStr(node, "user_crypto_src_2").c_str(),
-                                    AiNodeGetStr(node, "user_crypto_src_3").c_str());
+                                    AiNodeGetStr(node, aStr_user_crypto_src_0).c_str(),
+                                    AiNodeGetStr(node, aStr_user_crypto_src_1).c_str(),
+                                    AiNodeGetStr(node, aStr_user_crypto_src_2).c_str(),
+                                    AiNodeGetStr(node, aStr_user_crypto_src_3).c_str());
 
     data->setup_all(universe, 
-                    AiNodeGetStr(node, "aov_crypto_asset"), 
-                    AiNodeGetStr(node, "aov_crypto_object"),
-                    AiNodeGetStr(node, "aov_crypto_material"), 
+                    AiNodeGetStr(node, aStr_aov_crypto_asset), 
+                    AiNodeGetStr(node, aStr_aov_crypto_object),
+                    AiNodeGetStr(node, aStr_aov_crypto_material), 
                     uc_aov_array, 
                     uc_src_array, 
-                    AiNodeGetBool(node, "custom_output_driver"), 
-                    AiNodeGetBool(node, "create_depth_outputs"));
-
-    setup_outputs_lentil(universe);
+                    AiNodeGetBool(node, aStr_custom_output_driver), 
+                    AiNodeGetBool(node, aStr_create_depth_outputs));
 }
 
 shader_evaluate {
