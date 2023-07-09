@@ -117,9 +117,9 @@ with uigen.group(ui, 'Polynomial Optics', collapse=False):
 
     #with uigen.group(ui, 'advanced', collapse=True):
     ui.parameter('wavelength', 'float', 550.0, label='Wavelength (nm)', 
-        description='Wavelength in nanometers. The Polynomial Optics model is spectral, but since Arnold is an RGB renderer we trace every ray with the same wavelength.',
+        description='Wavelength in nanometers. The polynomial optics model is spectral, but since Arnold is an RGB renderer we trace every ray with the same wavelength.',
         mn=390, mx=700, houdini_disable_when='{ cameratype == ThinLens }')
-    ui.parameter('extra_sensor_shift', 'float', 0, label='Additional Sensor shift (mm)', 
+    ui.parameter('extra_sensor_shift', 'float', 0, label='Sensor Shift (mm)', 
         description='The autofocus system is more complicated for polynomial optics than for the thinlens model. This option allows you to slightly push the sensor forward and backward to fine-tune the focus, if needed.',
         mn=-10, mx=10, smn = -3, smx=3, houdini_disable_when='{ cameratype == ThinLens }')
 
@@ -150,9 +150,9 @@ with uigen.group(ui, 'Thin Lens', collapse=False):
 
 with uigen.group(ui, 'Bokeh Texture', collapse=True):
     ui.parameter('bokeh_enable_image', 'bool', False, label='Enable Texture', 
-        description='This option replaces the circular/polygonal aperture with a texture-based one.',
+        description='Replace the circular/polygonal aperture with a texture-based one.',
         houdini_join_next=True)
-    ui.parameter('bokeh_image_path', 'string', '', label='Filepath', 
+    ui.parameter('bokeh_image_path', 'string', '', label='Image Name', 
         description='Supply small-ish images. The visual quality will not increase much above 250x250, but the pre-computation time will.',
         houdini_disable_when='{ bokeh_enable_image == 0 }{ enable_dof == 0 }', filePathBrowse=True)
 
@@ -173,14 +173,14 @@ with uigen.group(ui, 'Bidirectional', collapse=True):
     ui.parameter('bidir_add_energy', 'float', 0, label='Additional Energy', 
         description='Sometimes, for artistic reasons, you might want to boost the intensity of the bokeh a bit.',
         mn=0, mx=100, smn=0, smx=10, houdini_disable_when='{ bidir_sample_mult == 0 }{ enable_dof == 0 }')
-    ui.parameter('bidir_add_energy_minimum_luminance', 'float', 2, label='Additional Energy Threshold', 
+    ui.parameter('bidir_add_energy_minimum_luminance', 'float', 2, label='Energy Threshold', 
         description='Only samples with a value above this parameter will be considered.',
         mn=0, mx=100, smn=0, smx=5, houdini_disable_when='{ bidir_sample_mult == 0 }{ enable_dof == 0 }')
-    ui.parameter('bidir_add_energy_transition', 'float', 1, label='Additional Energy Threshold Transition', 
-        description='This allows for a smooth transition, so that the additional energy does not flicker when the threshold is reached.',
+    ui.parameter('bidir_add_energy_transition', 'float', 1, label='Threshold Transition', 
+        description='Allows for a smooth transition so that the additional energy does not flicker when the threshold is reached.',
         mn=0, mx=10, smn=0, smx=5, houdini_disable_when='{ bidir_sample_mult == 0 }{ enable_dof == 0 }')
     ui.parameter('enable_bidir_transmission', 'bool', False, label='Enable for transmitted surfaces', 
-        description='WARNING: this should not be used except in very specific circumstances. For example, you might be rendering a set of LED lights which are behind a transmissive surface, but where the depth information is practically the same. Or you are inside the transmissive medium, such as underwater. In any other case, this option should be avoided.',
+        description='WARNING: this should not be used except in very specific circumstances. For example, you might be rendering a set of LED lights which are behind a transmissive surface, but where the depth information is practically the same. Or you are inside a transmissive medium, such as underwater. In any other case, this option should be avoided.',
         houdini_disable_when='{ bidir_sample_mult == 0 }{ enable_dof == 0 }')
     ui.parameter('enable_skydome', 'bool', False, label='Enable Skydome Redistribution', 
       description='Enables redistribution of the skydome. Due to the high brightness of HDRIs it might be desirable to disable this parameter.')
