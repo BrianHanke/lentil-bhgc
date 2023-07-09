@@ -20,45 +20,14 @@
 #include "operator_data.h"
 
 extern AtMutex l_critsec;
-extern bool l_critsec_active;
-
-
-///////////////////////////////////////////////
-//
-//      Crit sec utilities
-//
-///////////////////////////////////////////////
-
-inline bool lentil_crit_sec_init() {
-    // Called in node_plugin_initialize. Returns true as a convenience.
-    l_critsec_active = true;
-    //std::lock_guard<AtMutex> guard(l_critsec);
-    return true;
-}
-
-inline void lentil_crit_sec_close() {
-    // Called in node_plugin_cleanup
-    l_critsec_active = false;
-    //std::lock_guard<AtMutex> guard(l_critsec);
-}
 
 inline void lentil_crit_sec_enter() {
-    // If the crit sec has not been inited since last close, we simply do not enter.
-    // (Used by Cryptomatte filter.)
-    if (l_critsec_active)
-        //std::lock_guard<AtMutex> guard(l_critsec);
-        l_critsec.lock();
+    l_critsec.lock();
 }
 
 inline void lentil_crit_sec_leave() {
-    // If the crit sec has not been inited since last close, we simply do not enter.
-    // (Used by Cryptomatte filter.)
-    if (l_critsec_active)
-        //std::lock_guard<AtMutex> guard(l_critsec);
-        l_critsec.unlock();
+    l_critsec.unlock();
 }
-
-
 
 // enum to switch between lens models in interface dropdown
 enum LensModel{
@@ -200,7 +169,6 @@ struct Camera
 public:
 
     Camera() {
-        if (!l_critsec_active) AiMsgError("[Lentil] Critical section was not initialized. ");
         crypto_in_same_queue = false;
     }
 
