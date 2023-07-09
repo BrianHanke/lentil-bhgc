@@ -9,9 +9,9 @@ if (NOT DEFINED ARNOLD_VERSION)
 	endif()
 endif()
 
-# if local.cmake hasn't defined it already...
+# If local.cmake hasn't defined it already
 if (NOT DEFINED ARNOLD_ROOT)
-	# if the environment variable isn't set...
+	# If the environment variable isn't set
 	if (NOT DEFINED ENV{ARNOLD_ROOT})
 		message(FATAL_ERROR "Could not find Arnold SDK. Please set ARNOLD_ROOT to point to the root directory of the Arnold SDK. This is the directory containing bin, include etc. Either add a set() statement to a local.cmake file in the source directory, or define it as an environment variable prior to building.")
 	endif()
@@ -29,7 +29,7 @@ set(ARNOLD_INCLUDE_DIR ${ARNOLD_ROOT}/include)
 message(STATUS "ARNOLD_INCLUDE_DIR is ${ARNOLD_INCLUDE_DIR}")
 
 # Find the Arnold library directory
-# We link against the lib stub on Windows, because Windows is special.
+# We link against the lib stub on Windows
 set(ARNOLD_LIBDIR "bin")
 if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 	set(ARNOLD_LIBDIR "lib")
@@ -37,7 +37,6 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 else()
 	set(ARNOLD_LIBRARY_DIR ${ARNOLD_ROOT}/${ARNOLD_LIBDIR})
 endif()
-
 
 message(STATUS "ARNOLD_LIBRARY_DIR is ${ARNOLD_LIBRARY_DIR}")
 

@@ -3,3 +3,14 @@
 
 bin
 .vscode
+CryptomatteArnold/dist/1.2.3/ai/ae/alShaders.py
+CryptomatteArnold/dist/1.2.3/ai/ae/cryptomatteTemplate.py
+CryptomatteArnold/dist/1.2.3/ai/aexml/AEcryptomatteTemplate.xml
+CryptomatteArnold/dist/1.2.3/ai/aexml/NEcryptomatteTemplate.xml
+CryptomatteArnold/dist/1.2.3/ai/Args/cryptomatte.args
+CryptomatteArnold/dist/1.2.3/ai/C4DtoA/res/description/ainode_cryptomatte.h
+CryptomatteArnold/dist/1.2.3/ai/C4DtoA/res/description/ainode_cryptomatte.res
+CryptomatteArnold/dist/1.2.3/ai/C4DtoA/res/strings_us/description/ainode_cryptomatte.str
+CryptomatteArnold/dist/1.2.3/ai/INSTALL
+CryptomatteArnold/dist/1.2.3/ai/README
+CryptomatteArnold/dist/1.2.3/ai/spdl/cryptomatte.spdl

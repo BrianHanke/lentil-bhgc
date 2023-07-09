@@ -4,7 +4,6 @@
 
 AI_CAMERA_NODE_EXPORT_METHODS(lentilMethods)
 
-
 static const char* Units[] = {"mm", "cm", "dm", "m", "automatic", NULL};
 static const char* CameraTypes[] = {"ThinLens", "PolynomialOptics", NULL};
 static const char* ChromaticTypes[] = {"green_magenta", "red_cyan", NULL};
@@ -14,7 +13,6 @@ static const char* LensModelNames[] = {
   #include "../include/auto_generated_lens_includes/pota_cpp_lenses.h"
   NULL
 };
-
 
 node_parameters {
   AiParameterEnum("camera_type", ThinLens, CameraTypes);
@@ -51,7 +49,6 @@ node_parameters {
   AiMetaDataSetBool(nentry, nullptr, "force_update", true);
 }
 
-
 node_plugin_initialize { return true; }
 node_plugin_cleanup { }
 
@@ -73,7 +70,6 @@ node_finish {
 
   
 }
-
 
 camera_create_ray {
   Camera* camera_data = (Camera*)AiNodeGetLocalData(node);
@@ -159,7 +155,6 @@ camera_create_ray {
 //   }
 // }
 
-
 // approximation using pinhole camera FOV
 camera_reverse_ray {
   Camera* camera_data = (Camera*)AiNodeGetLocalData(node);
@@ -170,8 +165,6 @@ camera_reverse_ray {
 
   return true;
 }
-
-
 
 void registerLentilCamera(AtNodeLib* node) {
     node->methods = (AtNodeMethods*) lentilMethods;

@@ -19,6 +19,8 @@
 #include "aov_data.h"
 #include "operator_data.h"
 
+// critsec stuff
+
 extern AtMutex l_critsec;
 
 inline void lentil_crit_sec_enter() {
@@ -53,12 +55,6 @@ enum ChromaticType{
     green_magenta,
     red_cyan
 };
-
-
-
-
-
-
 
 struct Camera
 {
