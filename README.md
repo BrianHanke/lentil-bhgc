@@ -1,6 +1,6 @@
 ### Lentil-BHGC
 
-I created this to host Window builds of Lentil. I won't be changing any code or functionality. The only cosmetic change I've made so far is updating the wording of some tooltips. Will keep this current any time the official code base is updated.
+I created this repo to host Window builds of Lentil. I recently made some code changes that seem to allow Lentil to work with the most recent Arnold SDKs (7.2.2.0+). I don't have the time or resources for extensive testing, so use at your own risk. Feel free to report issues here!
 
 -----
 
