@@ -6,7 +6,7 @@ I created this repo to host Window builds of Lentil. I recently made some code c
 
 ### Original Developer's Notes
 
-There are two components to this project. The first of one is "pota" - short for "Polynomial optics to Arnold". The second one is "polynomial-optics", which is a fork of "Sparse high-degree polynomials for wide-angle lenses" (https://jo.dreggn.org/home/2016_optics.pdf)
+There are two components to this project. The first of one is "pota" - short for "Polynomial optics to Arnold". The second one is "polynomial-optics", which is a fork of "Sparse high-degree polynomials for wide-angle lenses." (https://jo.dreggn.org/home/2016_optics.pdf)
 
 To get started compiling the Arnold plugin, which I will assume most of the people here are interested in, you don't need to touch the "polynomial-optics" folder. The files have been pre-generated for compilation. However, if new lenses need to be added, this can be done with the code inside of "polynomial-optics."
 
