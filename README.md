@@ -12,7 +12,7 @@ To get started compiling the Arnold plugin, which I will assume most of the peop
 
 In the case cryptomatte will be used, it is important that a custom cryptomatte version is compiled. This can be done with the forked CryptomatteArnold repository.
   
-#### Arnold Plug-In Build Guide
+### Arnold Plug-In Build Guide
 
 Download the Arnold SDK from: https://arnoldrenderer.com/download/archive/ (under Arnold SDK). On my own machine, the environment variables look like this. Please modify for your needs/arnold version. Changing the Arnold Root version will change which Arnold version the plugin is compiled against.
 
