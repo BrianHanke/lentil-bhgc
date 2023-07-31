@@ -1,6 +1,17 @@
 ### Lentil-BHGC
 
-I created this repo to host Windows builds of Lentil. Most recently I updated the code to work with the latest Arnold SDK, 7.2.2.0+. I plan on keeping Lentil up to date and adding quality of life features as needed. I would also like to provide Houdini Solaris support eventually, but as it stands right now (July 2023) Arnold doesn't allow camera shaders or operators in Solaris.
+I created this repo to host Windows builds of Lentil. Most recently I updated the code to work with the latest Arnold SDK, 7.2.2.0+.
+
+I've also created a brand new commercial version of Lentil-BHGC with tons of added value:
+
+- Perpetual license with lifetime upgrades
+- Windows installer to make setup a breeze
+- Brand new User Guide with DCC setup instructions, parameter explanations and sample images
+- Interface and workflow redesigned for maximum ease of use
+- Bug fixes
+- Free tech support and feature requests
+
+Now available on Patreon (free for Gold-tier subscribers) - https://www.patreon.com/bhgc/shop/6127 - and coming soon to GumRoad and ArtStation.
 
 -----
 
