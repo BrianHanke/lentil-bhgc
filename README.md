@@ -6,7 +6,7 @@ I've also created a brand new commercial version of Lentil-BHGC with tons of add
 
 - Perpetual license with lifetime upgrades
 - Windows, Linux and MacOS builds
-- Maya, Houdini, Cinema 4D and Gafer support
+- Maya, Houdini, Cinema 4D and Gaffer support
 - Windows installer to make setup a breeze
 - Brand new User Guide with DCC setup instructions, parameter explanations and sample images
 - Interface and workflow redesigned for maximum ease of use
