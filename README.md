@@ -5,13 +5,15 @@ I created this repo to host Windows builds of Lentil. Most recently I updated th
 I've also created a brand new commercial version of Lentil-BHGC with tons of added value:
 
 - Perpetual license with lifetime upgrades
+- Windows, Linux and MacO builds
+- Maya, Houdini, Cinema 4D and Gafer support
 - Windows installer to make setup a breeze
 - Brand new User Guide with DCC setup instructions, parameter explanations and sample images
 - Interface and workflow redesigned for maximum ease of use
 - Bug fixes
 - Free tech support and feature requests
 
-Now available on Patreon (free for Gold-tier subscribers) - https://www.patreon.com/bhgc/shop/6127 - and coming soon to GumRoad and ArtStation.
+Now available on Patreon (free for Gold-tier subscribers) https://www.patreon.com/bhgc/shop/6127 and Gumroad https://bhgc.gumroad.com/l/lentil-bhgc.
 
 -----
 
