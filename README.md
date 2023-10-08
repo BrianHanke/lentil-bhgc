@@ -1,6 +1,6 @@
 ### Lentil-BHGC
 
-I created this repo to host Windows builds of Lentil. Most recently I updated the code to work with the latest Arnold SDK, 7.2.2.0+.
+I created this repo to host Windows builds of Lentil. Most recently I updated the code to work with Arnold SDK 7.2.2.0+.
 
 I've also created a brand new commercial version of Lentil-BHGC with tons of added value:
 
