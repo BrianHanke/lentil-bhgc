@@ -2,7 +2,7 @@
 
 I started this repo to host Windows builds of Lentil for Arnold SDK 7.2.2.0+.
 
-I've also created a new commercial version of Lentil-BHGC with tons of added value:
+I also created a new commercial version of Lentil-BHGC with tons of added value:
 
 - Perpetual license with lifetime upgrades
 - Windows, Linux and MacOS builds
