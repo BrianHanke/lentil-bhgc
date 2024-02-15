@@ -2,18 +2,18 @@
 
 I started this repo to host Windows builds of Lentil for Arnold SDK 7.2.2.0+.
 
-I've also created a brand new commercial version of Lentil-BHGC with tons of added value:
+I've also created a new commercial version of Lentil-BHGC with tons of added value:
 
 - Perpetual license with lifetime upgrades
 - Windows, Linux and MacOS builds
-- Maya, Houdini, Cinema 4D and Gaffer support
+- Maya, Houdini, Cinema 4D, 3ds Max (beta) and Gaffer support
 - Windows installer to make setup a breeze
 - Brand new User Guide with DCC setup instructions, parameter explanations and sample images
 - Interface and workflow redesigned for maximum ease of use
-- Bug fixes
+- Optimizations and bug fixes
 - Free tech support and feature requests
 
-Now available on Patreon (free for Gold-tier subscribers) https://www.patreon.com/bhgc/shop/6127 and Gumroad https://bhgc.gumroad.com/l/lentil-bhgc.
+Now available on Patreon https://www.patreon.com/bhgc/shop/6127 and Gumroad https://bhgc.gumroad.com/l/lentil-bhgc.
 
 -----
 
