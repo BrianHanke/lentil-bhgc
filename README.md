@@ -1,5 +1,7 @@
 ### Lentil-BHGC
 
+July 30, 2024 update: I added a new Lentil Developer's Guide to help people looking to experiment with the Lentil code on their own. Enjoy!
+
 I started this repo to host Windows builds of Lentil for Arnold SDK 7.2.2.0+.
 
 I also created a new commercial version of Lentil-BHGC with tons of added value:
