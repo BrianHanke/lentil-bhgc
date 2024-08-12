@@ -28,6 +28,6 @@ It's entirely possible that the Operator problem in 7.3.1.0 is a bug in the Arno
 
 Which brings us to:
 
-## Arnold 7.3.3.0
+## Arnold 7.3.3.1
 
-The API is broken again, this time as a result of a "deprecated" metadata feature being not only deprecated but disabled. It breaks the `node_update` code in Lentil. This is the next major task to undertake to get Lentil working with the latest Arnold builds, but in theory it won't be strictly required for a while. The Arnold devs are aware of this and it apparently wasn't intended. I'd expect a fix fairly soon, so we can deal with this change later on down the road.
+The bug in 7.3.3.0 has been fixed and Lentil now works again. Eventually the `node_update` code in Lentil will have to be changed, but it's not necessary yet.
