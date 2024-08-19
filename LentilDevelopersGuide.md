@@ -26,8 +26,6 @@ Removing the Operator may lead to other problems. The creator of Lentil, Zeno, w
 
 It's entirely possible that the Operator problem in 7.3.1.0 is a bug in the Arnold code and not something that we can expect to be fixed any time soon.
 
-Which brings us to:
-
 ## Arnold 7.3.3.1
 
 The bug in 7.3.3.0 has been fixed and Lentil now works again. Eventually the `node_update` code in Lentil will have to be changed, but it's not necessary yet.
