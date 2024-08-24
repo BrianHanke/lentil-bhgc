@@ -28,4 +28,4 @@ It's entirely possible that the Operator problem in 7.3.1.0 is a bug in the Arno
 
 ## Arnold 7.3.3.1
 
-The bug in 7.3.3.0 has been fixed and Lentil now works again. Eventually the `node_update` code in Lentil will have to be changed, but it's not necessary yet.
+7.3.3.0 introduced a bug with `node_update` that broke Lentil. This has been fixed in 7.3.3.1. Eventually the `node_update` code in Lentil will have to be changed, but it's not necessary yet.
