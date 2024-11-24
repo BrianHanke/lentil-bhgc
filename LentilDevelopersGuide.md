@@ -12,6 +12,10 @@ Lentil uses a lightly modified version of Cryptomatte. There are just a few chan
 
 The first major update to Arnold after Lentil was open-sourced was changes to the _critsec_ code. This is a simple change to make: have a look at the CryptomatteArnold 1.2.1 release and change Lentil to match what they did, updating `AiCritSec` to `AtMutex`.
 
+## Arnold 7.3.5.0
+
+Arnold now ships with a built-in version of Cryptomatte. There's no longer any need for _cryptomatte.dll_. Lentil seems to still work just fine, but there's a possibility the Cryptomatte change will cause problems in some cases. Will need a lot of user testing to find any issues.
+
 ## Arnold 7.3.0.0
 
 This should build no problem with pre-7.3 Lentil code.
