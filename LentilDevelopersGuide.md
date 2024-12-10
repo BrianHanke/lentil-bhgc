@@ -6,15 +6,11 @@ That being said, some people are just interested in playing around with the Lent
 
 ## Cryptomatte
 
-Lentil uses a lightly modified version of Cryptomatte. There are just a few changes in _cryptomatte.h_ and _cryptomatte_shader.cpp_. Copy and paste the Lentil additions into the latest Psyop CryptomatteArnold source and you'll be good to go.
+Lentil uses a lightly modified version of Cryptomatte. (Or it did! See below for 7.3.5.0 news.) There are just a few changes in _cryptomatte.h_ and _cryptomatte_shader.cpp_. Copy and paste the Lentil additions into the latest Psyop CryptomatteArnold source and you'll be good to go.
 
 ## Critsec
 
 The first major update to Arnold after Lentil was open-sourced was changes to the _critsec_ code. This is a simple change to make: have a look at the CryptomatteArnold 1.2.1 release and change Lentil to match what they did, updating `AiCritSec` to `AtMutex`.
-
-## Arnold 7.3.5.0
-
-Arnold now ships with a built-in version of Cryptomatte. There's no longer any need for _cryptomatte.dll_. Lentil seems to still work just fine, but there's a possibility the Cryptomatte change will cause problems in some cases. Will need a lot of user testing to find any issues.
 
 ## Arnold 7.3.0.0
 
@@ -33,3 +29,7 @@ It's entirely possible that the Operator problem in 7.3.1.0 is a bug in the Arno
 ## Arnold 7.3.3.1
 
 7.3.3.0 introduced a bug with `node_update` that broke Lentil. This has been fixed in 7.3.3.1. Eventually the `node_update` code in Lentil will have to be changed, but it's not necessary yet.
+
+## Arnold 7.3.5.0
+
+Cryptomatte is now hard coded into Arnold. This means there is no need for a separate _cryptomatte.dll_ and no need for the Lentil Cryptomatte customizations. In my limited testing this seems to be an improvement in Lentil quality of life. There was code in Lentil dedicated to trying to "time" the loading of Lentil vis-a-vis Cryptomatte. It wasn't great. Things appear to be working great so far and this simplifies Lentil building and maintenance.
