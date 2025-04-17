@@ -12,10 +12,6 @@ Lentil uses a lightly modified version of Cryptomatte. (Or it did! See below for
 
 The first major update to Arnold after Lentil was open-sourced was changes to the _critsec_ code. This is a simple change to make: have a look at the CryptomatteArnold 1.2.1 release and change Lentil to match what they did, updating `AiCritSec` to `AtMutex`.
 
-## Arnold 7.4.0.0
-
-The Arnold 7.4.0.0 SDK includes changes to the imager API. `schedule = AtImagerSchedule::FULL_FRAME` needs to be updated to `properties.schedule_full_frame = true`. I gave the new "run the imager after everything finishes" feature a try with `properties.run_once = true`, but that's not a good user experience. The entire frame renders, then very slowly the Lentil imager get applied on top at the end.
-
 ## Arnold 7.3.0.0
 
 This should build no problem with pre-7.3 Lentil code.
@@ -36,4 +32,8 @@ It's entirely possible that the Operator problem in 7.3.1.0 is a bug in the Arno
 
 ## Arnold 7.3.5.0
 
-Cryptomatte is now hard coded into Arnold. This means there is no need for a separate _cryptomatte.dll_ and no need for the Lentil Cryptomatte customizations. In my limited testing this seems to be an improvement in Lentil quality of life. There was code in Lentil dedicated to trying to "time" the loading of Lentil vis-a-vis Cryptomatte. It wasn't great. Things appear to be working great so far and this simplifies Lentil building and maintenance.
+Cryptomatte is now hard coded into Arnold. This means there is no need for a separate _cryptomatte.dll_ and no need for the Lentil Cryptomatte customizations. In my limited testing this seems to be an improvement in Lentil quality of life. There was code in Lentil dedicated to trying to "time" the loading of Lentil vis-a-vis Cryptomatte. It wasn't great. Things appear to be working perfectly so far and this massively simplifies Lentil building and maintenance.
+
+## Arnold 7.4.0.0
+
+The Arnold 7.4.0.0 SDK includes changes to the imager API. `schedule = AtImagerSchedule::FULL_FRAME` needs to be updated to `properties.schedule_full_frame = true`. I gave the new "run the imager after everything finishes" feature a try with `properties.run_once = true`, but that's not a good user experience. The entire frame renders, then very slowly the Lentil imager get applied on top at the end.
