@@ -15,7 +15,7 @@ I also created a new commercial version of Lentil-BHGC with tons of added value:
 - Optimizations and bug fixes
 - Free tech support and feature requests
 
-Now available on Gumroad https://bhgc.gumroad.com/l/lentil-bhgc, Patreon https://www.patreon.com/bhgc/shop/6127 and FlipperNormals https://flippednormals.com/product/lentil-bhgc-camera-plugin-for-arnold-42351.
+Now available on Gumroad https://bhgc.gumroad.com/l/lentil-bhgc, Patreon https://www.patreon.com/bhgc/shop/6127 and FlippedNormals https://flippednormals.com/product/lentil-bhgc-camera-plugin-for-arnold-42351.
 
 -----
 
