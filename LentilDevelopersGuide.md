@@ -1,6 +1,6 @@
 # Lentil Developer's Guide
 
-My commercial version of Lentil-BHGC aims to keep Lentil working with recent versions of Arnold and includes improvements and optimizations I've made: faster render times using a better RNG algorithm, purple chromatic abberation, updated UI, Windows installers, Gaffer support, beta 3ds Max support, new documentation, and more. 
+My commercial version of Lentil-BHGC aims to keep Lentil working with recent versions of Arnold and includes improvements and optimizations I've made: faster render times using a better RNG algorithm, purple chromatic abberation, updated UI, Windows installers, Gaffer support, 3ds Max support, new documentation, and more. 
 
 That being said, some people are just interested in playing around with the Lentil source and maybe modifying it to suit their individual needs. This article is here to help you understand what has changed in Arnold since Lentil's open source release in 2022 and what new challenges there are!
 
