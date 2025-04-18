@@ -8,14 +8,14 @@ I also created a new commercial version of Lentil-BHGC with tons of added value:
 
 - Perpetual license with lifetime upgrades
 - Windows, Linux and MacOS builds
-- Maya, Houdini, Cinema 4D, 3ds Max (beta) and Gaffer support
+- Maya, Houdini, Cinema 4D, 3ds Max and Gaffer support
 - Windows installer to make setup a breeze
 - Brand new User Guide with DCC setup instructions, parameter explanations and sample images
 - Interface and workflow redesigned for maximum ease of use
 - Optimizations and bug fixes
 - Free tech support and feature requests
 
-Now available on Patreon https://www.patreon.com/bhgc/shop/6127 and Gumroad https://bhgc.gumroad.com/l/lentil-bhgc.
+Now available on Gumroad https://bhgc.gumroad.com/l/lentil-bhgc, Patreon https://www.patreon.com/bhgc/shop/6127 and FlipperNormals https://flippednormals.com/product/lentil-bhgc-camera-plugin-for-arnold-42351.
 
 -----
 
